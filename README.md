@@ -1,5 +1,6 @@
-
-
+git clone https://github.com/MustafaKoca9/KeyHunt-Cuda.git
+cd KeyHunt-Cuda
+cd KeyHunt-Cuda
 ##### Linux
  - Edit the makefile and set up the appropriate CUDA SDK and compiler paths for nvcc. Or pass them as variables to `make` command.
 ```
