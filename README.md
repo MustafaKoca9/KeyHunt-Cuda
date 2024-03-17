@@ -1,12 +1,6 @@
-# KeyHunt-Cuda 
-_Hunt for Bitcoin private keys._
-
-This is a modified version of VanitySearch by [JeanLucPons](https://github.com/JeanLucPons/VanitySearch/).
-
-Renamed from VanitySearch to KeyHunt (inspired from [keyhunt](https://github.com/albertobsd/keyhunt) by albertobsd).
-
-A lot of gratitude to all the developers whose codes has been used here.
-
+```
+./KeyHunt -t 0 -g --gpui 0 -m address --coin BTC --range 20000000000000000:3ffffffffffffffff 13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so
+```
 # Features
 - For Bitcoin use ```--coin BTC``` and for Ethereum use ```--coin ETH```
 - Single address(rmd160 hash) for BTC or ETH address searching with mode ```-m ADDREES```
