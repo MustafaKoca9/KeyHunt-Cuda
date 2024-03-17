@@ -1,5 +1,126 @@
+
+
+##### Linux
+ - Edit the makefile and set up the appropriate CUDA SDK and compiler paths for nvcc. Or pass them as variables to `make` command.
+```
+sudo apt install -y libgmp-dev
+apt update && apt upgrade
+apt install git -y
+apt install build-essential -y
+apt install libssl-dev -y
+apt install libgmp-dev -y
+```
+    ```make
+    CUDA       = /usr/local/cuda-12.0
+    CXXCUDA    = /usr/bin/g++
+    ```
+ - To build with CUDA: pass CCAP value according to your GPU compute capability
+   ```sh
+    $ cd KeyHunt-Cuda
+    $ make gpu=amount CCAP=GPU CCAP value all
+    ```
+Nvidia GPU CCAP value
+```
+NVIDIA GeForce RTX 4090, RTX 4080, RTX 6000 Ada, Tesla L40, L40s Ada, L4 Ada 
+make gpu=1 CCAP=89 all
+NVIDIA A100 (the name “Tesla” has been dropped – GA100), NVIDIA DGX-A100
+make gpu=1 CCAP=80 all
+NVIDIA H100 (GH100), NVIDIA H200
+make gpu=1 CCAP=90 all
+Tesla GA10x cards, RTX Ampere – RTX 3080, GA102 – RTX 3090, RTX A2000, A3000, RTX A4000, A5000, A6000, NVIDIA A40, GA106 – RTX 3060, GA104 – RTX 3070, GA107 – RTX 3050, RTX A10, RTX A16, RTX A40, A2 Tensor Core GPU, A800 40GB
+make gpu=1 CCAP=86 all
+GTX/RTX Turing – GTX 1660 Ti, RTX 2060, RTX 2070, RTX 2080, Titan RTX, Quadro RTX 4000, Quadro RTX 5000, Quadro RTX 6000, Quadro RTX 8000, Quadro T1000/T2000, Tesla T4
+make gpu=1 CCAP=75 all
+DGX-1 with Volta, Tesla V100, GTX 1180 (GV104), Titan V, Quadro GV100
+make gpu=1 CCAP=70 all
+Quadro GP100, Tesla P100, DGX-1 (Generic Pascal)
+make gpu=1 CCAP=60 all
+GTX 1080, GTX 1070, GTX 1060, GTX 1050, GTX 1030 (GP108), GT 1010 (GP108) Titan Xp, Tesla P40, Tesla P4, Discrete GPU on the NVIDIA Drive PX2
+make gpu=1 CCAP=61 all
+```
+ - To build CPU-only version (without CUDA support):
+    ```sh
+    $ make all
+    ```
+
+TEST
 ```
 ./KeyHunt -t 0 -g --gpui 0 -m address --coin BTC --range 20000000000000000:3ffffffffffffffff 13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so
+```
+```
+KeyHunt-Cuda v1.07
+
+COMP MODE    : COMPRESSED
+COIN TYPE    : BITCOIN
+SEARCH MODE  : Single Address
+DEVICE       : GPU
+CPU THREAD   : 0
+GPU IDS      : 0
+GPU GRIDSIZE : -1x128 (Auto grid size)
+SSE          : YES
+RKEY         : 0 Mkeys
+MAX FOUND    : 65536
+BTC ADDRESS  : 13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so
+OUTPUT FILE  : Found.txt
+
+Start Time   : Sun Mar 17 10:01:52 2024
+Global start : 20000000000000000 (66 bit)
+Global end   : 3FFFFFFFFFFFFFFFF (66 bit)
+Global range : 1FFFFFFFFFFFFFFFF (65 bit)
+
+GPU          : GPU #0 NVIDIA A100-PCIE-40GB (108x64 cores) Grid(864x128)
+
+[00:00:02] [CPU+GPU: 2604.01 Mk/s] [GPU: 2604.01 Mk/s] [C: 0.000000 %] [R: 0] [T: 5,209,325,568 (33 bit)] [F: 0]  ^C
+```
+```
+KeyHunt-Cuda v1.07
+
+COMP MODE    : COMPRESSED
+COIN TYPE    : BITCOIN
+SEARCH MODE  : Single Address
+DEVICE       : GPU
+CPU THREAD   : 0
+GPU IDS      : 0
+GPU GRIDSIZE : -1x128 (Auto grid size)
+SSE          : YES
+RKEY         : 0 Mkeys
+MAX FOUND    : 65536
+BTC ADDRESS  : 13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so
+OUTPUT FILE  : Found.txt
+
+Start Time   : Sun Mar 17 10:04:36 2024
+Global start : 20000000000000000 (66 bit)
+Global end   : 3FFFFFFFFFFFFFFFF (66 bit)
+Global range : 1FFFFFFFFFFFFFFFF (65 bit)
+
+GPU          : GPU #0 NVIDIA A40 (84x128 cores) Grid(672x128)
+```
+```
+[00:00:02] [CPU+GPU: 2817.99 Mk/s] [GPU: 2817.99 Mk/s] [C: 0.000000 %] [R: 0] [T: 5,637,144,576 (33 bit)] [F: 0]  ^C
+
+KeyHunt-Cuda v1.07
+
+COMP MODE    : COMPRESSED
+COIN TYPE    : BITCOIN
+SEARCH MODE  : Single Address
+DEVICE       : GPU
+CPU THREAD   : 0
+GPU IDS      : 0
+GPU GRIDSIZE : -1x128 (Auto grid size)
+SSE          : YES
+RKEY         : 0 Mkeys
+MAX FOUND    : 65536
+BTC ADDRESS  : 13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so
+OUTPUT FILE  : Found.txt
+
+Start Time   : Sun Mar 17 10:10:29 2024
+Global start : 20000000000000000 (66 bit)
+Global end   : 3FFFFFFFFFFFFFFFF (66 bit)
+Global range : 1FFFFFFFFFFFFFFFF (65 bit)
+
+GPU          : GPU #0 NVIDIA RTX 6000 Ada Generation (142x0 cores) Grid(1136x128)
+
+[00:00:04] [CPU+GPU: 3423.69 Mk/s] [GPU: 3423.69 Mk/s] [C: 0.000000 %] [R: 0] [T: 13,698,596,864 (34 bit)] [F: 0]  ^C
 ```
 # Features
 - For Bitcoin use ```--coin BTC``` and for Ethereum use ```--coin ETH```
@@ -469,24 +590,6 @@ BYE
 ##### Windows
 - Microsoft Visual Studio Community 2019 
 - CUDA version 10.0
-##### Linux
- - Edit the makefile and set up the appropriate CUDA SDK and compiler paths for nvcc. Or pass them as variables to `make` command.
- - Install libgmp: ```sudo apt install -y libgmp-dev```
-
-    ```make
-    CUDA       = /usr/local/cuda-11.0
-    CXXCUDA    = /usr/bin/g++
-    ```
- - To build CPU-only version (without CUDA support):
-    ```sh
-    $ make all
-    ```
- - To build with CUDA: pass CCAP value according to your GPU compute capability
- - To get info about various Nvidia GPU CCAP value see [this](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/).
-    ```sh
-    $ cd KeyHunt-Cuda
-    $ make gpu=1 CCAP=75 all
-    ```
 #### BinSort
 ```sh
 $ cd BinSort
@@ -496,14 +599,3 @@ $ make
 ```
 python3 -m pip install base58
 ```
-
-## License
-KeyHunt-Cuda is licensed under GPLv3.
-
-## Donation
-- BTC: bc1qwngus7cv3z45w3xnsxrwru9t705azg4a0mux0h
-- ETH: 0x48bD1aE2B289feDBcCcba0D1591E7f088752bd99
-
-## __Disclaimer__
-ALL THE CODES, PROGRAM AND INFORMATION ARE FOR EDUCATIONAL PURPOSES ONLY. USE IT AT YOUR OWN RISK. THE DEVELOPER WILL NOT BE RESPONSIBLE FOR ANY LOSS, DAMAGE OR CLAIM ARISING FROM USING THIS PROGRAM.
-
